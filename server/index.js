@@ -97,6 +97,7 @@ Stripe Session: ${session.id}
 app.use(express.json());
 
 app.post('/api/create-checkout-session', async (req, res) => {
+  try {
   const { items } = req.body;
 
   if (!items || items.length === 0) {
@@ -140,6 +141,10 @@ app.post('/api/create-checkout-session', async (req, res) => {
   });
 
   res.json({ sessionId: session.id, url: session.url });
+  } catch (err) {
+    console.error('Checkout error:', err.message);
+    res.status(500).json({ error: err.message });
+  }
 });
 
 const PORT = process.env.PORT || 3001;
