@@ -20,10 +20,17 @@ const card = { background:'#fff', border:'1px solid #E8D9C0', borderRadius:8, pa
 
 export default function Contact() {
   return (
-    <section id="kontakt" style={{ padding:'80px 5%', background:'#F5EDD8' }}>
-      <SectionLabel>Kontakt</SectionLabel>
-      <SectionTitle>So findest du uns</SectionTitle>
-      <Divider />
+    <section id="kontakt" style={{ padding:'80px 5%', background:'var(--bg)' }}>
+      <span className="planetono-kicker" style={{ textAlign: 'center' }}>Kontakt</span>
+      <h2 className="planetono-headline" style={{ 
+        fontSize: 'clamp(3rem, 7vw, 5rem)', 
+        textAlign: 'center', 
+        marginBottom: '1.5rem', 
+        textShadow: '3px 3px 0 var(--secondary)' 
+      }}>
+        SO FINDEST DU <span style={{ color: 'var(--primary)' }}>UNS</span>
+      </h2>
+      <div style={{ width: 60, height: 4, background: 'var(--primary)', borderRadius: 2, margin: '0 auto 3rem' }} />
 
       <motion.div
         initial="hidden" whileInView="show" viewport={{ once:true, margin:'-60px' }}
@@ -31,33 +38,33 @@ export default function Contact() {
         style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(260px, 1fr))', gap:'1.5rem' }}
       >
         {/* Hours */}
-        <motion.div variants={cardV} style={card}>
-          <CardTitle>Öffnungszeiten</CardTitle>
+        <motion.div variants={cardV} className="brutal-card" style={{ padding: '2rem' }}>
+          <CardTitle>ÖFFNUNGSZEITEN</CardTitle>
           {HOURS.map(({ day, time }, i) => {
             const isToday = i === todayIndex;
             return (
-              <div key={day} style={{ display:'flex', justifyContent:'space-between', padding:'0.55rem 0', borderBottom: i<HOURS.length-1 ? '1px solid #F0E5D0' : 'none' }}>
-                <span style={{ fontSize:'0.88rem', color: isToday ? '#C8960A' : '#8A6A52', fontWeight: isToday ? 700 : 400 }}>{day}</span>
-                <span style={{ fontSize:'0.88rem', color: isToday ? '#C8960A' : '#1A0A06', fontWeight: isToday ? 700 : 500 }}>{time}</span>
+              <div key={day} style={{ display:'flex', justifyContent:'space-between', padding:'0.6rem 0', borderBottom: i<HOURS.length-1 ? '1px solid rgba(0,0,0,0.05)' : 'none' }}>
+                <span style={{ fontSize:'0.9rem', color: isToday ? 'var(--primary)' : 'var(--black)', fontWeight: isToday ? 800 : 600 }}>{day}</span>
+                <span style={{ fontFamily:'var(--head)', fontSize:'1rem', color: isToday ? 'var(--primary)' : 'var(--black)', fontWeight: 700, letterSpacing: '1px' }}>{time}</span>
               </div>
             );
           })}
         </motion.div>
 
         {/* Info */}
-        <motion.div variants={cardV} style={card}>
-          <CardTitle>Kontakt & Adresse</CardTitle>
+        <motion.div variants={cardV} className="brutal-card" style={{ padding: '2rem' }}>
+          <CardTitle>KONTAKT & ADRESSE</CardTitle>
           <Row Icon={MapPin} label="Adresse">Atroper Str. 16<br />47226 Duisburg</Row>
           <Row Icon={Phone} label="Telefon">
-            <a href="tel:01632364246" style={{ color:'#C8960A', textDecoration:'none', fontWeight:600 }}>0163 2364246</a>
+            <a href="tel:01632364246" style={{ color:'var(--primary)', textDecoration:'none', fontWeight:700, fontFamily: 'var(--head)', fontSize: '1.1rem', letterSpacing: '1px' }}>0163 2364246</a>
           </Row>
           <Row Icon={Clock} label="Heute geöffnet">{HOURS[todayIndex].time}</Row>
         </motion.div>
 
         {/* Map */}
-        <motion.div variants={cardV} style={{ ...card, padding:0, overflow:'hidden', gridColumn:'1 / -1' }}>
+        <motion.div variants={cardV} className="brutal-card" style={{ padding:0, overflow:'hidden', gridColumn:'1 / -1' }}>
           <div style={{ padding:'1.5rem 2rem 1rem' }}>
-            <CardTitle>Standort</CardTitle>
+            <CardTitle>STANDORT</CardTitle>
           </div>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2487!2d6.7317!3d51.4108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8c3a1234!2sAtroper+Str.+16%2C+47226+Duisburg!5e0!3m2!1sde!2sde!4v1"
@@ -71,16 +78,18 @@ export default function Contact() {
 }
 
 function CardTitle({ children }) {
-  return <h3 style={{ fontFamily:"system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif", fontSize:'1.05rem', fontWeight:700, color:'#C8960A', marginBottom:'1.3rem' }}>{children}</h3>;
+  return <h3 style={{ fontFamily:"var(--head)", fontSize:'1.4rem', fontWeight:700, color:'var(--primary)', marginBottom:'1.3rem', letterSpacing: '1px' }}>{children}</h3>;
 }
 
 function Row({ Icon, label, children }) {
   return (
-    <div style={{ display:'flex', alignItems:'flex-start', gap:'0.9rem', padding:'0.85rem 0', borderBottom:'1px solid #F0E5D0' }}>
-      <Icon size={17} color="#C8960A" strokeWidth={2} style={{ flexShrink:0, marginTop:2 }} />
+    <div style={{ display:'flex', alignItems:'flex-start', gap:'1rem', padding:'1rem 0', borderBottom:'1px solid rgba(0,0,0,0.05)' }}>
+      <div style={{ background: 'var(--bg2)', padding: '0.6rem', borderRadius: 8, border: '1.5px solid var(--black)', display: 'flex' }}>
+        <Icon size={18} color="var(--primary)" strokeWidth={2.5} style={{ flexShrink:0 }} />
+      </div>
       <div>
-        <div style={{ fontSize:'0.68rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.1em', color:'#B8997A', marginBottom:3 }}>{label}</div>
-        <div style={{ fontSize:'0.9rem', color:'#1A0A06', lineHeight:1.5 }}>{children}</div>
+        <div style={{ fontSize:'0.75rem', fontWeight:800, textTransform:'uppercase', letterSpacing:'2px', color:'var(--primary)', marginBottom:4, fontFamily: 'var(--head)' }}>{label}</div>
+        <div style={{ fontSize:'0.95rem', color:'var(--black)', lineHeight:1.5, fontWeight: 600 }}>{children}</div>
       </div>
     </div>
   );
